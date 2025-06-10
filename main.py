@@ -10,7 +10,7 @@ class Agent999:
         print("９９９号：こんにちは♡ これからサイバー世界にしゅっぱーつ！")
 
     def search_web(self, query):
-        print(f"９９９号：『{query}』についてしらべるね♡")
+        print(f"９９９号：『{query}』についてしらべるね")
         url = f"https://www.google.com/search?q={query}"
         print(f"(仮想検索)🔍→ {url}")
 
