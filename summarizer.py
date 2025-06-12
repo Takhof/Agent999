@@ -5,8 +5,9 @@ import os
 from dotenv import load_dotenv
 
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+load_dotenv()
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 
 
@@ -20,7 +21,8 @@ def summarize_text(text, max_tokens=200):
         max_tokens=max_tokens,
         temperature=0.5
     )
-    return response['choices'][0]['message']['content']
+    return response.choices[0].message.content
+
 
 def summarize_articles(input_file="999_articles.json", output_file="999_summaries.json"):
     with open(input_file, "r", encoding="utf-8") as f:

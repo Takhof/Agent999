@@ -1,0 +1,17 @@
+[
+  {
+    "title": "CTFs",
+    "url": "/ctfs",
+    "summary": "CTFs（Capture The Flag）は、セキュリティ技術のトレーニングやスキル向上を目的とした競技イベントです。CTFsは、セキュリティに関する様々な課題や謎を解いてポイントを獲得する形式で行われます。"
+  },
+  {
+    "title": "Upcoming",
+    "url": "/event/list/upcoming",
+    "summary": "\"Upcoming - /event/list/upcoming\" は、次回のイベントリストを取得するためのエンドポイントです。"
+  },
+  {
+    "title": "Archive",
+    "url": "#",
+    "summary": "提供された情報が不足しているため、要約することができません。もしもっと詳細な情報を提供していただければ、お手伝いできるかもしれません。"
+  }
+]
