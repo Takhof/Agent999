@@ -1,6 +1,16 @@
 import requests
 import subprocess
+import os
 from bs4 import BeautifulSoup
+from qa_agent import answer_question
+from summarizer import summarize_articles
+from fetch_articles import fetch_articles
+
+
+if not os.path.exists("999_summaries.json"):
+    print("９９９号：要約ファイルがまだないみたい…作っちゃうね♡")
+    fetch_articles("https://ctftime.org/writeups")
+    summarize_articles()
 
 class Agent999:
     def __init__(self):
@@ -29,8 +39,17 @@ class Agent999:
         result = subprocess.run(code, shell=True, capture_output=True, text=True)
         print(result.stdout)
 
+
 # 実行
 agent = Agent999()
 agent.say_hello()
 agent.search_web("XSS 攻撃とは")
 agent.fetch_ctf_topics()
+
+
+while True:
+    q = input("ハニー：")
+    if "やめ" in q or q.lower() == "exit":
+        print("９９９号：ばいば〜い♡ またすぐ会おうねっ♡")
+        break
+    answer_question(q)
