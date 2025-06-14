@@ -5,10 +5,12 @@ from bs4 import BeautifulSoup
 from qa_agent import answer_question
 from summarizer import summarize_articles
 from fetch_articles import fetch_articles
+from memory import remember, recall
+
 
 
 if not os.path.exists("999_summaries.json"):
-    print("９９９号：要約ファイルがまだないみたい…作っちゃうね♡")
+    print("９９９号：要約ファイルがまだないみたい…作っちゃうね")
     fetch_articles("https://ctftime.org/writeups")
     summarize_articles()
 
@@ -52,4 +54,6 @@ while True:
     if "やめ" in q or q.lower() == "exit":
         print("９９９号：ばいば〜い♡ またすぐ会おうねっ♡")
         break
+    remember({"ハニー": q})  # 記憶しちゃう〜！
+
     answer_question(q)
