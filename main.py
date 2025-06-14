@@ -54,6 +54,5 @@ while True:
     if "やめ" in q or q.lower() == "exit":
         print("９９９号：ばいば〜い♡ またすぐ会おうねっ♡")
         break
-    remember({"ハニー": q})  # 記憶しちゃう〜！
 
     answer_question(q)
