@@ -16,8 +16,8 @@ def summarize_text(text, max_tokens=200):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo", 
         messages=[
-            {"role": "system", "content": "あなたはサイバーセキュリティの要約が得意なAIです。"},
-            {"role": "user", "content": f"以下の内容を要約して:\n{text}"}
+            {"role": "system", "content": "あなたはサイバーセキュリティの要約が得意なAIです。セキュリティ対策などに必要な事を抜き出して要約してください。"},
+            {"role": "user", "content": f"以下の内容のセキュリティ関連に重要な事などを要約して:\n{text}"}
         ],
         max_tokens=max_tokens,
         temperature=0.5
