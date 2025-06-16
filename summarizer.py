@@ -3,6 +3,7 @@ from openai import OpenAI
 import json
 import os
 from dotenv import load_dotenv
+from fetch_articles import extract_article_text
 
 
 load_dotenv()
@@ -31,10 +32,13 @@ def summarize_articles(input_file="999_articles.json", output_file="999_summarie
     summaries = []
 
     for i, article in enumerate(articles):
-        print(f"💡 {i+1}件目を要約中：「{article['title']}」")
-        # 仮にタイトルとURLだけを使って要約
-        content = f"{article['title']} - {article['url']}"
-        summary = summarize_text(content)
+        print(f"📘 {i+1}件目：「{article['title']}」の本文読んでるよ〜")
+        article_text = extract_article_text(article['url'])
+
+        if not article_text:
+            article_text = article['title']
+
+        summary = summarize_text(article_text[:3000])  # 長すぎ防止
         summaries.append({
             "title": article["title"],
             "url": article["url"],
@@ -44,4 +48,4 @@ def summarize_articles(input_file="999_articles.json", output_file="999_summarie
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(summaries, f, indent=2, ensure_ascii=False)
 
-    print("９９９号：要約おわったよ〜 ")
+    print("✅ 要約ぜんぶ終わったよ〜♡")
