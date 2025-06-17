@@ -1,0 +1,29 @@
+[
+  {
+    "title": "xssのおすすめ",
+    "url": "https://www.ipa.go.jp/security/vuln/xss.html",
+    "category": "Information Disclosure",
+    "keywords": [
+      "URL, sensitive data, WARPサイト, IPAウェブサイト"
+    ],
+    "summary": "この記事は、IPAのウェブサイトにおける情報漏洩に関する問題を取り上げています。特に、WARPサイトに保存されたデータやIPAウェブサイトの過去の情報が閲覧可能である可能性があることが指摘されています。ユーザーは、古いURLにアクセスすることで機密情報を見ることができる可能性があるため、詳細な検索を利用して情報漏洩を防ぐべきです。"
+  },
+  {
+    "title": "xssのおすすめ",
+    "url": "https://www.netsparker.com/blog/web-security/cross-site-scripting-xss/",
+    "category": "XSS",
+    "keywords": [
+      "Cross-site scripting, injection attacks, same-origin policy, session hijacking, sensitive data exposure"
+    ],
+    "summary": "Cross-site scripting (XSS) is a web application vulnerability that allows attackers to inject malicious scripts into a user's browser. By exploiting unsanitized user input, attackers can execute scripts in the context of the vulnerable web page, leading to session hijacking, data exposure, and other malicious activities. Despite being client-side, XSS vulnerabilities can have serious consequences, including privilege escalation and server code execution. It is crucial for web developers to detect and prevent XSS vulnerabilities to protect user data and prevent security breaches"
+  },
+  {
+    "title": "xssのおすすめ",
+    "url": "https://www.veracode.com/security/xss",
+    "category": "XSS",
+    "keywords": [
+      "Cross-Site Scripting, Injection Attack, OWASP Top 10, Veracode Dynamic Analysis, Persistent XSS"
+    ],
+    "summary": "Cross-Site Scripting (XSS) attacks inject malicious code into websites, targeting users directly. Organizations can prevent XSS by writing secure code, testing for vulnerabilities, and using security tools. XSS allows attackers to execute code in users' browsers, access data like session cookies, and take control of sites. Persistent XSS occurs when untrusted user input is stored on a server, commonly found in message forums or social media profiles"
+  }
+]
