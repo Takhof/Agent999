@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from urllib.parse import urljoin
+
 
 def fetch_articles(url, limit=5):
     res = requests.get(url)
@@ -12,7 +14,8 @@ def fetch_articles(url, limit=5):
         href = link.get("href")
         text = link.get_text().strip()
         if href and text:
-            articles.append({"title": text, "url": href})
+            full_url = urljoin(base_url, href)
+            articles.append({"title": text, "url": full_url})
     
     with open("999_articles.json", "w", encoding="utf-8") as f:
         json.dump(articles, f, indent=2, ensure_ascii=False)
