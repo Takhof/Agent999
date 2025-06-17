@@ -7,6 +7,10 @@ from summarizer import summarize_articles
 from fetch_articles import fetch_articles
 from memory import remember, recall
 from build_knowledge_base import build_knowledge
+from gpt_search_url import gpt_find_urls
+from fetch_articles import extract_article_text
+from build_knowledge_base import analyze_article
+import json
 
 
 
@@ -47,6 +51,48 @@ class Agent999:
         result = subprocess.run(code, shell=True, capture_output=True, text=True)
         print(result.stdout)
 
+    def smart_search_and_learn(self, topic):
+        print(f"９９９号：『{topic}』について、記事さがして知識にするね♡")
+        urls = gpt_find_urls(topic)
+        new_knowledge = []
+
+        for url in urls:
+            print(f"📡 読み込み中：{url}")
+            content = extract_article_text(url)
+            if not content:
+                continue
+
+            result = analyze_article(content)
+            lines = result.splitlines()
+            if len(lines) < 3:
+                continue
+
+            category = lines[0].strip("1.カテゴリ：").strip()
+            keywords = lines[1].strip("2.キーワード：").strip().split("、")
+            summary = lines[2].strip("3.要点の要約：").strip()
+
+            new_knowledge.append({
+                "title": topic,
+                "url": url,
+                "category": category,
+                "keywords": keywords,
+                "summary": summary
+            })
+
+    # 既存の知識と合体
+        if os.path.exists("999_knowledge.json"):
+            with open("999_knowledge.json", "r", encoding="utf-8") as f:
+                existing = json.load(f)
+        else:
+            existing = []
+
+        existing.extend(new_knowledge)
+
+        with open("999_knowledge.json", "w", encoding="utf-8") as f:
+            json.dump(existing, f, indent=2, ensure_ascii=False)
+
+        print("✅ GPTから新しい知識を取得して追加したよ♡")
+
 
 # 実行
 agent = Agent999()
@@ -60,5 +106,10 @@ while True:
     if "やめ" in q or q.lower() == "exit":
         print("９９９号：ばいば〜い♡ またすぐ会おうねっ♡")
         break
+
+    if "記事さがして" in q:
+        topic = q.replace("記事さがして", "").strip()
+        agent.smart_search_and_learn(topic)
+        continue
 
     answer_question(q)
