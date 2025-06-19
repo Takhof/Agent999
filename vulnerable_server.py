@@ -1,25 +1,32 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
-import urllib.parse
+from flask import Flask, request
 
-class VulnerableHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        parsed_path = urllib.parse.urlparse(self.path)
-        query = urllib.parse.parse_qs(parsed_path.query)
+app = Flask(__name__)
 
-        name = query.get("name", ["anonymous"])[0]
+# メモリ上にコメント保存（再起動すると消えるよ）
+comments = []
 
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        comment = request.form.get("comment", "")
+        comments.append(comment)
 
-        response = f"<html><body><h1>Hello, {name}</h1></body></html>"
-        self.wfile.write(response.encode())
-
-def run(server_class=HTTPServer, handler_class=VulnerableHandler, port=8080):
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    print(f"💀 脆弱サーバー起動中... http://localhost:{port}")
-    httpd.serve_forever()
+    comment_html = "<br>".join(comments)
+    return f"""
+    <html>
+        <head><title>Vulnerable Site</title></head>
+        <body>
+            <h1>コメント掲示板（超バグあり）</h1>
+            <form method="POST">
+                <input name="comment" />
+                <input type="submit" />
+            </form>
+            <h2>投稿一覧</h2>
+            {comment_html}
+        </body>
+    </html>
+    """
 
 if __name__ == "__main__":
-    run()
+    print("🧪 バグありWebサーバー起動中… http://localhost:5000")
+    app.run(debug=True)

