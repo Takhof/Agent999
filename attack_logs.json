@@ -1,0 +1,11 @@
+[
+  {"payload": "<script>alert('XSS1')</script>"},
+  {"payload": "<img src=x onerror=alert('XSS2')>"},
+  {"payload": "<svg onload=alert('XSS3')>"},
+  {"payload": "' OR '1'='1"},
+  {"payload": "'; DROP TABLE users; --"},
+  {"payload": "<iframe src='javascript:alert(4)'></iframe>"},
+  {"payload": "admin' --"},
+  {"payload": "<body onload=alert('XSS4')>"},
+  {"payload": "<video><source onerror=\"alert('XSS5')\"></video>"}
+]
