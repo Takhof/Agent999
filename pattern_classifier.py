@@ -15,3 +15,11 @@ def classify_patterns(texts, num_clusters=3):
     kmeans.fit(X)
 
     return kmeans.labels_, vectorizer, kmeans
+
+
+if __name__ == "__main__":
+    texts = load_attack_texts()
+    labels, vec, model = classify_patterns(texts)
+
+    for i, label in enumerate(labels):
+        print(f"攻撃 {i+1} はクラスター {label}")
