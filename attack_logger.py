@@ -23,7 +23,7 @@ def log_attack(vector, payload, target_url, response_html, success=True):
         "payload": payload,
         "target_url": target_url,
         "success": success,
-        "response_excerpt": response_html[:500]  # 重くならないように一部だけ
+        "response_excerpt": response_html[:500] 
     }
     save_log(entry)
     print("📝 攻撃ログ保存したよ〜♡")
