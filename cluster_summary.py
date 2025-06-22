@@ -15,7 +15,7 @@ def summarize_clusters(log_file="attack_logs.json", num_clusters=3):
         print(f"🧪 クラスタ {cluster_id} の攻撃パターンを分析中だよ〜")
         summary = gpt_summarize_texts(cluster_texts)
         summaries.append({
-            "cluster_id": cluster_id,
+            "cluster_id": int(cluster_id),
             "example_count": len(cluster_texts),
             "summary": summary
         })
