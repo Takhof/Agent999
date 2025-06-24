@@ -24,7 +24,7 @@ Only give the raw payloads.
 
 # テスト用
 if __name__ == "__main__":
-    attack_type = "XSS"
+    attack_type = "random"
     payloads = generate_payloads(attack_type, count=5)
     print(f"💥 Generated payloads for {attack_type}:\n")
     for p in payloads:
