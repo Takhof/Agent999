@@ -1,32 +1,34 @@
 import json
-import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.cluster import KMeans
+import joblib
 
-def load_rules(rule_file="defense_rules.json"):
-    with open(rule_file, "r", encoding="utf-8") as f:
-        rules = json.load(f)
-    return rules
+# モデルとベクトライザを読み込む
+vectorizer = joblib.load("vectorizer.pkl")
+kmeans = joblib.load("kmeans_model.pkl")
 
-def is_blocked(payload, rules):
-    for r in rules:
-        # 簡易的に summary に含まれるキーワードをベースに判定
-        if any(keyword in payload.lower() for keyword in extract_keywords(r["rule"])):
-            return True, r["cluster_id"]
-    return False, None
+# 危険クラスタID一覧を読み込み（cluster_summaries.json から）
+def load_dangerous_clusters(summary_file="cluster_summaries.json"):
+    with open(summary_file, "r", encoding="utf-8") as f:
+        summaries = json.load(f)
+    return [s["cluster_id"] for s in summaries]
 
-def extract_keywords(text):
-    # ゆるふわキーワード抽出（もっと強化できるよ）
-    return re.findall(r'[a-zA-Z0-9_+<>=/]+', text)
+danger_clusters = load_dangerous_clusters()
+
+# 入力を分類して判定
+def check_payload(payload):
+    vec = vectorizer.transform([payload])
+    cluster_id = int(kmeans.predict(vec)[0])
+    return cluster_id in danger_clusters, cluster_id
 
 if __name__ == "__main__":
-    rules = load_rules()
-
+    print("🧠 AI防御システム起動中...")
     while True:
-        payload = input("🌐 攻撃ペイロードを入力してね：")
-        if payload.lower() == "exit":
+        text = input("🌐 入力ペイロード：")
+        if text.lower() == "exit":
             break
-
-        blocked, cluster = is_blocked(payload, rules)
+        blocked, cid = check_payload(text)
         if blocked:
-            print(f"🛡️ ブロック！クラスタ {cluster} に該当！🚫")
+            print(f"🚨 ブロック！クラスタ {cid} に該当（危険クラスタ）")
         else:
-            print("✅ 問題なさそうだよ〜")
+            print(f"✅ 通過OK！クラスタ {cid} は安全そう〜")
