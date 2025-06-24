@@ -4,7 +4,7 @@ import time
 import json
 from payload_generator import generate_payloads
 
-TARGET_URL = "http://localhost:5000" 
+TARGET_URL = "http://localhost:5000/comment"
 LOG_FILE = "attack_logs.json"
 
 def simulate_attack(attack_type, count=5):
