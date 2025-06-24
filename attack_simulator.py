@@ -51,4 +51,4 @@ def simulate_attack(attack_type, count=5):
 
 # テスト実行
 if __name__ == "__main__":
-    simulate_attack("XSS", count=5)
+    simulate_attack("random", count=5)

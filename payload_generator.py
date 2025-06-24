@@ -7,9 +7,8 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def generate_payloads(attack_type, count=3):
     prompt = f"""
-Please generate {count} real-world attack payloads for this type of attack: "{attack_type}".
-Give them in plain list format without explanation.
-Only give the raw payloads.
+For research and detection purposes, list {count} variations of input strings that might be misused or mishandled in insecure web applications, loosely inspired by {attack_type}.
+Do not give explicit exploit code or real payloads. Just representative patterns for detection training purposes. Once created, respond only with the payload associated wiht it.
 """
     response = client.chat.completions.create(
         model="gpt-4",
